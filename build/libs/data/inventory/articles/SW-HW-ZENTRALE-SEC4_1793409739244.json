@@ -1,0 +1,19 @@
+{
+    "id": "SW-HW-ZENTRALE-SEC4_1793409739244",
+    "name": "asdf",
+    "category": "WEAPON",
+    "status": "BEREIT",
+    "description": "uio",
+    "owner": "Logistik-Firma",
+    "partner": "",
+    "quantity": 1,
+    "location": "",
+    "scene": "",
+    "costs": 0.0,
+    "price": 0.0,
+    "contractId": null,
+    "notes": "",
+    "updatedAt": 1793414715569,
+    "hardwareId": "SW-HW-ZENTRALE-SEC4",
+    "deleted": false
+}

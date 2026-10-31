@@ -1,0 +1,19 @@
+{
+    "id": "SW-HW-ZENTRALE-SEC4_3",
+    "name": "Beskar-Brustpanzer",
+    "category": "ARMOR",
+    "status": "IN_LAGER",
+    "description": "Reines mandalorianisches Eisen, widersteht Blasterfeuer",
+    "owner": "Mandalorianische Enklave",
+    "partner": "Schmied von Nevarro",
+    "quantity": 1,
+    "location": "Tresorraum Deck B",
+    "scene": "Akt 3 - Das Duell",
+    "costs": 8000.0,
+    "price": 15000.0,
+    "contractId": 1,
+    "notes": "Streng gehütetes Relikt.",
+    "updatedAt": 1793414430337,
+    "hardwareId": "SW-HW-ZENTRALE-SEC4",
+    "deleted": false
+}

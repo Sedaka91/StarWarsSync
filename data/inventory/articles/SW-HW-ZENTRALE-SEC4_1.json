@@ -1,0 +1,19 @@
+{
+    "id": "SW-HW-ZENTRALE-SEC4_1",
+    "name": "DL-44 Schwerer Blaster",
+    "category": "WEAPON",
+    "status": "BEREIT",
+    "description": "Modifiziertes Modell mit verstärktem Energiekonverter",
+    "owner": "Captain Solo",
+    "partner": "Corellian Arms",
+    "quantity": 4,
+    "location": "Hangar Bay 3, Kiste A-12",
+    "scene": "Akt 1 - Flucht von Corellia",
+    "costs": 500.0,
+    "price": 1200.0,
+    "contractId": "1",
+    "notes": "Sehr zuverlässig bei Kurzstreckengefechten.",
+    "updatedAt": 1793445893719,
+    "hardwareId": "SW-HW-ZENTRALE-SEC4",
+    "deleted": false
+}

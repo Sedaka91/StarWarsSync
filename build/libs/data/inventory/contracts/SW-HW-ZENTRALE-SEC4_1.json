@@ -1,0 +1,20 @@
+{
+    "id": "SW-HW-ZENTRALE-SEC4_1",
+    "contractNumber": "K-2024-SW1",
+    "title": "Beschaffung von Blaster-Zellen",
+    "type": "BESCHAFFUNG",
+    "status": "LAUFEND",
+    "owner": "Karthon Logistik",
+    "partner": "Black Sun Syndikat",
+    "startDate": 1792809630331,
+    "endDate": 1794624030331,
+    "costs": 12000.0,
+    "price": 18000.0,
+    "deposit": 3000.0,
+    "signed": true,
+    "terms": "Lieferung in Sektor 4 binnen 14 Standardtagen. Barzahlung bei Übergabe.",
+    "notes": "Wichtig: Wachsamkeit bei der Übergabe auf Ord Mantell.",
+    "updatedAt": 1793414430331,
+    "hardwareId": "SW-HW-ZENTRALE-SEC4",
+    "deleted": false
+}

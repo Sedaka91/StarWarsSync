@@ -1,0 +1,19 @@
+{
+    "id": "SW-HW-ZENTRALE-SEC4_2",
+    "name": "Astromech-Droiden-Einheit R2",
+    "category": "DROID",
+    "status": "IM_EINSATZ",
+    "description": "Vollständig gewarteter R2-Mechaniker mit Scomp-Link",
+    "owner": "Rebellen-Zelle",
+    "partner": "Industrial Automaton",
+    "quantity": 2,
+    "location": "Frachter Cockpit",
+    "scene": "Akt 2 - Hyperraum-Navigation",
+    "costs": 2500.0,
+    "price": 4500.0,
+    "contractId": null,
+    "notes": "Besitzt archivierte Sternenkarten des Outer Rim.",
+    "updatedAt": 1793445938316,
+    "hardwareId": "SW-HW-ZENTRALE-SEC4",
+    "deleted": true
+}

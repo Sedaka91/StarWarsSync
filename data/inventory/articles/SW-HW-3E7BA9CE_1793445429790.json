@@ -1,0 +1,19 @@
+{
+    "id": "SW-HW-3E7BA9CE_1793445429790",
+    "name": "DL-44 Schwerer Blaster",
+    "category": "WEAPON",
+    "status": "BEREIT",
+    "description": "",
+    "owner": "Captain Solo",
+    "partner": "",
+    "quantity": 2,
+    "location": "",
+    "scene": "",
+    "costs": 500.0,
+    "price": 1200.0,
+    "contractId": "SW-HW-3E7BA9CE_1793445428790",
+    "notes": "",
+    "updatedAt": 1793445601059,
+    "hardwareId": "SW-HW-3E7BA9CE",
+    "deleted": true
+}

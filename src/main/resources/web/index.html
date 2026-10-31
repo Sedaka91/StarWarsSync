@@ -1,0 +1,2264 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STAR WARS DATAPAD // ZENTRALE LOGISTIK</title>
+    <style>
+        :root {
+            --bg-deep: #060a10;
+            --bg-surface: #0a131e;
+            --bg-card: #0e1824;
+            --bg-input: #121f2f;
+            --holo-cyan: #00e5ff;
+            --holo-cyan-dim: rgba(0, 229, 255, 0.15);
+            --holo-cyan-glow: rgba(0, 229, 255, 0.4);
+            --holo-amber: #ffb300;
+            --holo-amber-dim: rgba(255, 179, 0, 0.15);
+            --holo-green: #00e676;
+            --holo-green-dim: rgba(0, 230, 118, 0.15);
+            --holo-red: #ff5252;
+            --holo-red-dim: rgba(255, 82, 82, 0.15);
+            --text-main: #eceff1;
+            --text-dim: #90a4ae;
+            --text-dark: #546e7a;
+            --font-family: 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont, sans-serif;
+
+            /* Continuous Datapad Borders (Top-Left & Bottom-Right 45deg cut) */
+            --border-cyan: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%0A%20%20%3Cpath%20d%3D%22M%208%200.6%20L%2023.4%200.6%20L%2023.4%2016%20L%2016%2023.4%20L%200.6%2023.4%20L%200.6%208%20Z%22%20fill%3D%22%230a1824%22%20stroke%3D%22%2300e5ff%22%20stroke-width%3D%221.2%22/%3E%0A%3C/svg%3E") 8 fill;
+            --border-cyan-dim: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%0A%20%20%3Cpath%20d%3D%22M%208%200.6%20L%2023.4%200.6%20L%2023.4%2016%20L%2016%2023.4%20L%200.6%2023.4%20L%200.6%208%20Z%22%20fill%3D%22%230e1824%22%20stroke%3D%22%231a3a52%22%20stroke-width%3D%221.2%22/%3E%0A%3C/svg%3E") 8 fill;
+            --border-cyan-glow: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%0A%20%20%3Cpath%20d%3D%22M%208%200.75%20L%2023.25%200.75%20L%2023.25%2016%20L%2016%2023.25%20L%200.75%2023.25%20L%200.75%208%20Z%22%20fill%3D%22%23102538%22%20stroke%3D%22%2340efff%22%20stroke-width%3D%221.5%22/%3E%0A%3C/svg%3E") 8 fill;
+            --border-cyan-filled: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%0A%20%20%3Cpath%20d%3D%22M%208%200.6%20L%2023.4%200.6%20L%2023.4%2016%20L%2016%2023.4%20L%200.6%2023.4%20L%200.6%208%20Z%22%20fill%3D%22%2300e5ff%22%20stroke%3D%22%2300e5ff%22%20stroke-width%3D%221.2%22/%3E%0A%3C/svg%3E") 8 fill;
+            --border-amber: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%0A%20%20%3Cpath%20d%3D%22M%208%200.6%20L%2023.4%200.6%20L%2023.4%2016%20L%2016%2023.4%20L%200.6%2023.4%20L%200.6%208%20Z%22%20fill%3D%22%230e1824%22%20stroke%3D%22%23ffb300%22%20stroke-width%3D%221.2%22/%3E%0A%3C/svg%3E") 8 fill;
+            --border-green: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%0A%20%20%3Cpath%20d%3D%22M%208%200.6%20L%2023.4%200.6%20L%2023.4%2016%20L%2016%2023.4%20L%200.6%2023.4%20L%200.6%208%20Z%22%20fill%3D%22%230e1824%22%20stroke%3D%22%2300e676%22%20stroke-width%3D%221.2%22/%3E%0A%3C/svg%3E") 8 fill;
+            --border-red: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%0A%20%20%3Cpath%20d%3D%22M%208%200.6%20L%2023.4%200.6%20L%2023.4%2016%20L%2016%2023.4%20L%200.6%2023.4%20L%200.6%208%20Z%22%20fill%3D%22%230e1824%22%20stroke%3D%22%23ff5252%22%20stroke-width%3D%221.2%22/%3E%0A%3C/svg%3E") 8 fill;
+            --border-panel: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2032%2032%22%3E%0A%20%20%3Cpath%20d%3D%22M%2012%200.6%20L%2031.4%200.6%20L%2031.4%2020%20L%2020%2031.4%20L%200.6%2031.4%20L%200.6%2012%20Z%22%20fill%3D%22%230a131e%22%20stroke%3D%22%231a3348%22%20stroke-width%3D%221.2%22/%3E%0A%3C/svg%3E") 12 fill;
+            --border-panel-cyan: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2032%2032%22%3E%0A%20%20%3Cpath%20d%3D%22M%2012%200.6%20L%2031.4%200.6%20L%2031.4%2020%20L%2020%2031.4%20L%200.6%2031.4%20L%200.6%2012%20Z%22%20fill%3D%22%230a131e%22%20stroke%3D%22%2300e5ff%22%20stroke-width%3D%221.2%22/%3E%0A%3C/svg%3E") 12 fill;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: var(--font-family);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(0, 229, 255, 0.05) 0%, transparent 60%),
+                linear-gradient(rgba(14, 24, 36, 0.35) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(14, 24, 36, 0.35) 1px, transparent 1px);
+            background-size: 100% 100%, 30px 30px, 30px 30px;
+        }
+
+        /* Top Header */
+        header {
+            background: linear-gradient(180deg, #0d1722 0%, #080e16 100%);
+            border-bottom: 2px solid #1a3348;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo-badge {
+            width: 48px;
+            height: 48px;
+            border-style: solid;
+            border-width: 8px;
+            border-image: var(--border-cyan);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .brand-info h1 {
+            font-size: 1.25rem;
+            letter-spacing: 2px;
+            color: var(--holo-cyan);
+            text-transform: uppercase;
+            font-weight: 700;
+            text-shadow: 0 0 10px var(--holo-cyan-glow);
+        }
+
+        .brand-info .sub {
+            font-size: 0.75rem;
+            color: var(--holo-amber);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .header-sys-status {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .status-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-style: solid;
+            border-width: 6px;
+            border-image: var(--border-green);
+            padding: 4px 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--holo-green);
+            letter-spacing: 1px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--holo-green);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--holo-green);
+            animation: pulse-dot 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.85); }
+        }
+
+        .ip-badge {
+            border-style: solid;
+            border-width: 6px;
+            border-image: var(--border-cyan-dim);
+            padding: 4px 12px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: var(--holo-cyan);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Nav Tabs - Matching the Android App Datapad Tabs */
+        nav {
+            background: #070c14;
+            border-bottom: 1px solid #1a3348;
+            padding: 12px 24px;
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            border-style: solid;
+            border-width: 8px;
+            border-image: var(--border-cyan-dim);
+            background: transparent;
+            color: var(--text-dim);
+            padding: 6px 18px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            border-image: var(--border-cyan);
+            color: var(--text-main);
+        }
+
+        .tab-btn.active {
+            border-image: var(--border-cyan);
+            color: var(--holo-cyan);
+            filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.4));
+        }
+
+        .tab-btn .badge {
+            margin-left: 6px;
+            background: rgba(0, 229, 255, 0.15);
+            padding: 2px 7px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            color: var(--holo-cyan);
+        }
+
+        .tab-btn.active .badge {
+            background: var(--holo-cyan);
+            color: #000;
+            font-weight: 800;
+        }
+
+        /* Main Content Container */
+        main {
+            flex: 1;
+            padding: 24px;
+            max-width: 1920px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            border-style: solid;
+            border-width: 10px;
+            border-image: var(--border-cyan-dim);
+            background: transparent;
+            padding: 8px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--holo-cyan);
+        }
+
+        .stat-card.amber { border-image: var(--border-amber); }
+        .stat-card.amber::before { background: var(--holo-amber); }
+        .stat-card.green { border-image: var(--border-green); }
+        .stat-card.green::before { background: var(--holo-green); }
+        .stat-card.red { border-image: var(--border-red); }
+        .stat-card.red::before { background: var(--holo-red); }
+
+        .stat-card .label {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .stat-card .value {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-main);
+            font-family: monospace;
+        }
+
+        .stat-card .value.cyan { color: var(--holo-cyan); text-shadow: 0 0 10px var(--holo-cyan-glow); }
+        .stat-card .value.amber { color: var(--holo-amber); }
+        .stat-card .value.green { color: var(--holo-green); }
+
+        /* Panels */
+        .holo-panel {
+            border-style: solid;
+            border-width: 12px;
+            border-image: var(--border-panel);
+            background: transparent;
+            padding: 14px 18px;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #1a3348;
+        }
+
+        .panel-title {
+            font-size: 1rem;
+            letter-spacing: 1.5px;
+            color: var(--holo-cyan);
+            text-transform: uppercase;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .panel-title.amber { color: var(--holo-amber); }
+
+        /* Buttons with Continuous Cut-Corner Borders */
+        .btn {
+            border-style: solid;
+            border-width: 8px;
+            border-image: var(--border-cyan);
+            background: transparent;
+            color: var(--holo-cyan);
+            padding: 4px 14px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.15s ease;
+            font-family: inherit;
+        }
+
+        .btn:hover {
+            border-image: var(--border-cyan-glow);
+            color: #40efff;
+            filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.5));
+        }
+
+        .btn.filled {
+            border-image: var(--border-cyan-filled);
+            color: #000;
+            font-weight: 800;
+        }
+
+        .btn.filled:hover {
+            filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.6));
+        }
+
+        .btn.amber {
+            border-image: var(--border-amber);
+            color: var(--holo-amber);
+        }
+
+        .btn.amber:hover {
+            filter: drop-shadow(0 0 8px rgba(255, 179, 0, 0.5));
+        }
+
+        .btn.green {
+            border-image: var(--border-green);
+            color: var(--holo-green);
+        }
+
+        .btn.green:hover {
+            filter: drop-shadow(0 0 8px rgba(0, 230, 118, 0.5));
+        }
+
+        .btn.red {
+            border-image: var(--border-red);
+            color: var(--holo-red);
+        }
+
+        .btn.red:hover {
+            filter: drop-shadow(0 0 8px rgba(255, 82, 82, 0.5));
+        }
+
+        .btn-sm {
+            padding: 2px 8px;
+            font-size: 0.72rem;
+            border-width: 6px;
+        }
+
+        /* Filter Controls */
+        .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 16px;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            border-style: solid;
+            border-width: 8px;
+            border-image: var(--border-cyan-dim);
+            background: transparent;
+            color: var(--text-main);
+            padding: 4px 12px 4px 36px;
+            font-size: 0.85rem;
+            outline: none;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .search-input:focus {
+            border-image: var(--border-cyan);
+            filter: drop-shadow(0 0 6px rgba(0, 229, 255, 0.35));
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--holo-cyan);
+            font-size: 14px;
+            pointer-events: none;
+        }
+
+        .filter-select {
+            border-style: solid;
+            border-width: 8px;
+            border-image: var(--border-cyan-dim);
+            background: #0e1824;
+            color: var(--text-main);
+            padding: 4px 10px;
+            font-size: 0.85rem;
+            outline: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .filter-select:focus {
+            border-image: var(--border-cyan);
+        }
+
+        /* Tables */
+        .table-wrapper {
+            overflow-x: auto;
+            border-style: solid;
+            border-width: 8px;
+            border-image: var(--border-panel);
+            background: var(--bg-card);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.85rem;
+        }
+
+        th {
+            background: #0c1520;
+            color: var(--text-dim);
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.72rem;
+            padding: 12px 16px;
+            border-bottom: 1px solid #1a3348;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(26, 51, 72, 0.6);
+            vertical-align: middle;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(0, 229, 255, 0.03);
+        }
+
+        .badge-chip {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .badge-cyan { background: var(--holo-cyan-dim); color: var(--holo-cyan); border: 1px solid var(--holo-cyan); }
+        .badge-amber { background: var(--holo-amber-dim); color: var(--holo-amber); border: 1px solid var(--holo-amber); }
+        .badge-green { background: var(--holo-green-dim); color: var(--holo-green); border: 1px solid var(--holo-green); }
+        .badge-red { background: var(--holo-red-dim); color: var(--holo-red); border: 1px solid var(--holo-red); }
+        .badge-dim { background: rgba(255,255,255,0.06); color: var(--text-dim); border: 1px solid #1a3348; }
+
+        .credits {
+            font-family: monospace;
+            font-weight: 600;
+            color: var(--holo-cyan);
+        }
+
+        /* Modal Dialog */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(4, 7, 12, 0.85);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            border-style: solid;
+            border-width: 12px;
+            border-image: var(--border-panel-cyan);
+            background: #0a131e;
+            filter: drop-shadow(0 0 30px rgba(0, 229, 255, 0.3));
+            width: 90%;
+            max-width: 640px;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: modalPop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes modalPop {
+            from { transform: scale(0.92); }
+            to { transform: scale(1); }
+        }
+
+        .modal-header {
+            background: #0b1522;
+            padding: 16px 20px;
+            border-bottom: 1px solid #1a3348;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-title {
+            color: var(--holo-cyan);
+            font-size: 1rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .modal-body {
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .modal-footer {
+            background: #0b1522;
+            padding: 14px 20px;
+            border-top: 1px solid #1a3348;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-dim);
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            border-style: solid;
+            border-width: 8px;
+            border-image: var(--border-cyan-dim);
+            background: transparent;
+            color: var(--text-main);
+            padding: 4px 10px;
+            font-size: 0.85rem;
+            outline: none;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .form-control:focus {
+            border-image: var(--border-cyan);
+            filter: drop-shadow(0 0 6px rgba(0, 229, 255, 0.35));
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* Drag & Drop Zone */
+        .drop-zone {
+            border-style: solid;
+            border-width: 12px;
+            border-image: var(--border-cyan);
+            background: rgba(0, 229, 255, 0.05);
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .drop-zone.dragover {
+            border-image: var(--border-cyan-glow);
+            background: rgba(0, 229, 255, 0.15);
+            filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.5));
+        }
+
+        .drop-zone-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+            color: var(--holo-cyan);
+        }
+
+        .drop-zone-text {
+            color: var(--text-main);
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .drop-zone-sub {
+            color: var(--text-dim);
+            font-size: 0.75rem;
+            margin-top: 6px;
+        }
+
+        /* QR & WiFi Section */
+        .wifi-connect-box {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 24px;
+            align-items: center;
+            border-style: solid;
+            border-width: 12px;
+            border-image: var(--border-cyan);
+            background: #0a131e;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .wifi-connect-box {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .qr-display {
+            width: 190px;
+            height: 190px;
+            background: #fff;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+        }
+
+        .wifi-details h2 {
+            color: var(--holo-cyan);
+            font-size: 1.25rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .url-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 12px 0 16px 0;
+            border-style: solid;
+            border-width: 8px;
+            border-image: var(--border-cyan-dim);
+            padding: 6px 14px;
+            font-family: monospace;
+            font-size: 1.1rem;
+            color: var(--holo-green);
+        }
+
+        .steps-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        .steps-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .step-num {
+            background: var(--holo-cyan);
+            color: #000;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        /* Toast notifications */
+        #toast-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 9999;
+        }
+
+        .toast {
+            border-style: solid;
+            border-width: 8px;
+            border-image: var(--border-cyan);
+            background: #0e1824;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            padding: 8px 14px;
+            color: var(--text-main);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 280px;
+            animation: slideInRight 0.3s ease;
+        }
+
+        .toast.success { border-image: var(--border-green); }
+        .toast.error { border-image: var(--border-red); }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="brand-container">
+            <div class="logo-badge" id="headerLogo">🚀</div>
+            <div class="brand-info">
+                <h1 id="headerCompanyName">STAR WARS DATAPAD</h1>
+                <div class="sub">BEDIENER: <span id="headerUserName">KOMMANDANT</span> // SEC-4 ZENTRALE</div>
+            </div>
+        </div>
+
+        <div class="header-sys-status">
+            <div class="ip-badge">
+                <span>📡 WLAN IP:</span>
+                <strong id="headerIpDisplay">Lade...</strong>
+            </div>
+            <div class="status-pill">
+                <div class="status-dot"></div>
+                <span>ONLINE & BEREIT</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav>
+        <button class="tab-btn active" onclick="switchTab('articles')">📦 Waren & Artikel</button>
+        <button class="tab-btn" onclick="switchTab('contracts')">📜 Verträge & Aufträge</button>
+        <button class="tab-btn" onclick="switchTab('users')">👤 Benutzer</button>
+        <button class="tab-btn" onclick="switchTab('sync')">📡 WLAN Synchronisation</button>
+        <button class="tab-btn" onclick="switchTab('import')">📥 JSON Import & Export</button>
+        <button class="tab-btn" onclick="switchTab('settings')">⚙️ Firmenprofil & Einstellungen</button>
+    </nav>
+
+    <!-- Main Container -->
+    <main>
+
+        <!-- TAB 1: ARTIKEL -->
+        <section id="tab-articles" class="tab-pane active">
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="label">Artikel-Typen</span>
+                    <span class="value cyan" id="statArticleTypes">0</span>
+                </div>
+                <div class="stat-card green">
+                    <span class="label">Gesamtstückzahl im Lager</span>
+                    <span class="value green" id="statArticleQuantity">0</span>
+                </div>
+                <div class="stat-card amber">
+                    <span class="label">Gesamtwert (Verkauf)</span>
+                    <span class="value amber" id="statArticleValue">0 CR</span>
+                </div>
+                <div class="stat-card">
+                    <span class="label">Gesamteinkaufswert</span>
+                    <span class="value" id="statArticleCosts">0 CR</span>
+                </div>
+            </div>
+
+            <div class="holo-panel">
+                <div class="panel-header">
+                    <div class="panel-title">📦 WARENBESTAND DER LOGISTIK-FIRMA</div>
+                    <button class="btn filled" onclick="openArticleModal()">+ NEUER ARTIKEL</button>
+                </div>
+
+                <div class="filter-row">
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="articleSearch" class="search-input" placeholder="Artikel suchen nach Name, Besitzer, Ort..." oninput="renderArticles()">
+                    </div>
+                    <select id="articleCategoryFilter" class="filter-select" onchange="renderArticles()">
+                        <option value="">Alle Kategorien</option>
+                        <option value="WEAPON">Waffen & Blaster</option>
+                        <option value="ARMOR">Rüstung & Helme</option>
+                        <option value="DROID">Droiden & Technik</option>
+                        <option value="SHIP_PART">Schiffs- & Antriebsteile</option>
+                        <option value="SUPPLY">Vorräte & Rationen</option>
+                        <option value="HOLOCRON">Artefakte & Holocron</option>
+                        <option value="MISC">Ausrüstung & Sonstiges</option>
+                    </select>
+                    <select id="articleStatusFilter" class="filter-select" onchange="renderArticles()">
+                        <option value="">Alle Status</option>
+                        <option value="BEREIT">Einsatzbereit</option>
+                        <option value="IM_EINSATZ">Im aktiven Einsatz</option>
+                        <option value="BESCHAEDIGT">Beschädigt / Reparatur</option>
+                        <option value="IN_LAGER">Im Depot eingelagert</option>
+                        <option value="VERSCHOLLEN">Verschollen / Vermisst</option>
+                    </select>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name & Beschreibung</th>
+                                <th>Kategorie</th>
+                                <th>Status</th>
+                                <th>Menge</th>
+                                <th>Besitzer & Partner</th>
+                                <th>ID & Nutzer</th>
+                                <th>Einkauf</th>
+                                <th>Verkauf</th>
+                                <th>Verknüpfter Vertrag</th>
+                                <th>Aktionen</th>
+                            </tr>
+                        </thead>
+                        <tbody id="articlesTableBody">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: VERTRÄGE -->
+        <section id="tab-contracts" class="tab-pane">
+            <div class="stats-grid">
+                <div class="stat-card amber">
+                    <span class="label">Verträge Gesamt</span>
+                    <span class="value amber" id="statContractTotal">0</span>
+                </div>
+                <div class="stat-card green">
+                    <span class="label">Laufende Verträge</span>
+                    <span class="value green" id="statContractActive">0</span>
+                </div>
+                <div class="stat-card cyan">
+                    <span class="label">Auftragsvolumen (Ertrag)</span>
+                    <span class="value cyan" id="statContractRevenue">0 CR</span>
+                </div>
+                <div class="stat-card">
+                    <span class="label">Gesamtgewinn / Marge</span>
+                    <span class="value green" id="statContractProfit">0 CR</span>
+                </div>
+            </div>
+
+            <div class="holo-panel">
+                <div class="panel-header">
+                    <div class="panel-title amber">📜 LOGISTIK-VERTRÄGE & AUFTRÄGE</div>
+                    <button class="btn amber" onclick="openContractModal()">+ NEUER VERTRAG</button>
+                </div>
+
+                <div class="filter-row">
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="contractSearch" class="search-input" placeholder="Vertrag suchen nach Nummer, Titel, Partner..." oninput="renderContracts()">
+                    </div>
+                    <select id="contractTypeFilter" class="filter-select" onchange="renderContracts()">
+                        <option value="">Alle Typen</option>
+                        <option value="HANDEL">Handelsvertrag</option>
+                        <option value="KAUF">Kaufabwicklung</option>
+                        <option value="BESCHAFFUNG">Beschaffungsauftrag</option>
+                        <option value="KOPFGELD">Kopfgeld / Söldnerauftrag</option>
+                        <option value="GEHEIM">Klassifizierte Operation</option>
+                    </select>
+                    <select id="contractStatusFilter" class="filter-select" onchange="renderContracts()">
+                        <option value="">Alle Status</option>
+                        <option value="ENTWURF">Entwurf</option>
+                        <option value="LAUFEND">Laufend / Aktiv</option>
+                        <option value="ERFUELLT">Erfüllt</option>
+                        <option value="GESCHEITERT">Gescheitert / Abgebrochen</option>
+                    </select>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nummer</th>
+                                <th>Titel</th>
+                                <th>Typ</th>
+                                <th>Status</th>
+                                <th>Auftraggeber</th>
+                                <th>Partner</th>
+                                <th>ID & Nutzer</th>
+                                <th>Kosten</th>
+                                <th>Preis</th>
+                                <th>Gewinn</th>
+                                <th>Unterzeichnet</th>
+                                <th>Verknüpfte Artikel</th>
+                                <th>Aktionen</th>
+                            </tr>
+                        </thead>
+                        <tbody id="contractsTableBody">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- TAB: BENUTZER -->
+        <section id="tab-users" class="tab-pane">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="label">Registrierte Datapads</span>
+                    <span class="value cyan" id="statUserTotal">0</span>
+                </div>
+                <div class="stat-card green">
+                    <span class="label">Aktive Geräte (24h)</span>
+                    <span class="value green" id="statUserActive">0</span>
+                </div>
+                <div class="stat-card amber">
+                    <span class="label">Gesamt Synchronisationen</span>
+                    <span class="value amber" id="statUserSyncCount">0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="label">Letzter Datapad-Kontakt</span>
+                    <span class="value" id="statUserLastSync">-</span>
+                </div>
+            </div>
+
+            <div class="holo-panel">
+                <div class="panel-header">
+                    <div class="panel-title">👤 REGISTRIERTE DATAPAD-NUTZER & HARDWARE-IDENTITÄTEN</div>
+                    <button class="btn" onclick="fetchUsers()">🔄 AKTUALISIEREN</button>
+                </div>
+
+                <div class="filter-row">
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="userSearch" class="search-input" placeholder="Datapad suchen nach Hardware-ID, Bediener, IP, Notiz..." oninput="renderUsers()">
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Hardware-ID</th>
+                                <th>Bediener & Firma</th>
+                                <th>Letzte IP</th>
+                                <th>Syncs</th>
+                                <th>Erste Registrierung</th>
+                                <th>Letzte Synchronisation</th>
+                                <th>Notiz / Zuordnung</th>
+                                <th>Aktionen</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: WLAN SYNC -->
+        <section id="tab-sync" class="tab-pane">
+            <div class="wifi-connect-box">
+                <div class="qr-display" id="qrContainer">
+                    <!-- SVG QR Code generated here -->
+                </div>
+                <div class="wifi-details">
+                    <h2>📡 WLAN SYNCHRONISATIONS-ZENTRALE</h2>
+                    <p style="color: var(--text-dim); font-size: 0.85rem;">
+                        Verbinde dein Android-Datapad im selben WLAN-Netzwerk direkt mit dieser Zentrale.
+                    </p>
+                    <div class="url-box">
+                        <span id="syncUrlDisplay">http://127.0.0.1:8080</span>
+                        <button class="btn btn-sm" onclick="copySyncUrl()">KOPIEREN</button>
+                    </div>
+                    <ul class="steps-list">
+                        <li>
+                            <span class="step-num">1</span>
+                            <span>Öffne die <strong>StarWarsInventar App</strong> auf deinem Android Tablet / Smartphone im selben WLAN.</span>
+                        </li>
+                        <li>
+                            <span class="step-num">2</span>
+                            <span>Tippe in der linken Leiste unter <strong>Aktionen & Sync</strong> auf <strong>📡 WLAN SYNC</strong>.</span>
+                        </li>
+                        <li>
+                            <span class="step-num">3</span>
+                            <span>Gib die oben angezeigte IP-Adresse & Port ein und tippe auf <strong>🔄 BIDIREKTIONAL SYNCEN</strong>.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="holo-panel">
+                <div class="panel-header">
+                    <div class="panel-title">⚡ SCHNELL-AKTIONEN & TEST-SYNC</div>
+                </div>
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                    <button class="btn green" onclick="triggerClientPull()">⬇️ VOM SERVER LADEN (TEST)</button>
+                    <button class="btn amber" onclick="downloadBackupJson()">📄 JSON-BUNDLE HERUNTERLADEN</button>
+                    <button class="btn" onclick="downloadBackupZip()">📦 ZIP-ARCHIV HERUNTERLADEN</button>
+                    <button class="btn" onclick="fetchStatus()">🔄 SERVER-STATUS AKTUALISIEREN</button>
+                </div>
+            </div>
+
+            <div class="holo-panel">
+                <div class="panel-header">
+                    <div class="panel-title">📜 SYNCHRONISATIONS-PROTOKOLL (LETZTE AKTIVITÄTEN)</div>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Zeitpunkt</th>
+                                <th>Client-IP</th>
+                                <th>Aktion / Modus</th>
+                                <th>Ergebnis</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="syncLogsTableBody">
+                            <tr>
+                                <td colspan="5" style="text-align: center; color: var(--text-dim);">Noch keine Synchronisations-Vorgänge aufgezeichnet.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: IMPORT & EXPORT -->
+        <section id="tab-import" class="tab-pane">
+            <div class="holo-panel">
+                <div class="panel-header">
+                    <div class="panel-title">📥 JSON & ZIP DATEI-IMPORT</div>
+                </div>
+
+                <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+                    <div class="drop-zone-icon">📂</div>
+                    <div class="drop-zone-text">JSON- oder ZIP-Dateien hier ablegen oder klicken zum Auswählen</div>
+                    <div class="drop-zone-sub">Unterstützt: Artikel-JSON, Vertrag-JSON, Backup-Bundles, ZIP-Archive aus der Android-App</div>
+                    <input type="file" id="fileInput" accept=".json,.zip" style="display:none;" onchange="handleFileSelect(event)">
+                </div>
+
+                <div style="margin-top: 20px; display: flex; align-items: center; gap: 16px;">
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.85rem;">
+                        <input type="checkbox" id="overwriteCheckbox">
+                        <span style="color: var(--holo-amber);">Bestehende Daten vor dem Import komplett leeren (Überschreiben)</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="holo-panel">
+                <div class="panel-header">
+                    <div class="panel-title">📝 MANUELLER JSON-TEXT IMPORT</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">JSON-Daten einfügen (Artikel, Vertrag oder Bundle):</label>
+                    <textarea id="rawJsonInput" class="form-control" style="min-height: 140px; font-family: monospace;" placeholder='{"name": "DL-44 Blaster", "category": "WEAPON", ...}'></textarea>
+                </div>
+                <div style="margin-top: 12px; display: flex; justify-content: flex-end;">
+                    <button class="btn green" onclick="importRawJson()">JSON IMPORTIEREN</button>
+                </div>
+            </div>
+
+            <div class="holo-panel">
+                <div class="panel-header">
+                    <div class="panel-title">📤 EXPORT-FUNKTIONEN</div>
+                </div>
+                <p style="color: var(--text-dim); font-size: 0.85rem; margin-bottom: 16px;">
+                    Exportiere alle Daten als Sicherungskopie oder zur manuellen Übertragung auf ein Android-Gerät.
+                </p>
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                    <button class="btn green" onclick="downloadBackupZip()">📦 ALS ZIP HERUNTERLADEN (Android Verzeichnisstruktur)</button>
+                    <button class="btn" onclick="downloadBackupJson()">📄 ALS BUNDLE-JSON HERUNTERLADEN</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 5: EINSTELLUNGEN -->
+        <section id="tab-settings" class="tab-pane">
+            <div class="holo-panel" style="max-width: 680px;">
+                <div class="panel-header">
+                    <div class="panel-title">⚙️ FIRMENPROFIL & IDENTITÄT</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Firmenname:</label>
+                    <input type="text" id="settingsCompanyName" class="form-control" placeholder="z. B. Karthon Logistik">
+                </div>
+
+                <div class="form-group" style="margin-top: 12px;">
+                    <label class="form-label">Bediener / Spielername:</label>
+                    <input type="text" id="settingsUserName" class="form-control" placeholder="z. B. Captain Solo">
+                </div>
+
+                <div class="form-group" style="margin-top: 12px;">
+                    <label class="form-label">Firmen-Logo Preset:</label>
+                    <select id="settingsLogoPreset" class="form-control" onchange="updateLogoPreview()">
+                        <option value="CARGO">Fracht & Logistik (CARGO 📦)</option>
+                        <option value="KUAT">Kuat Drive Yards (KUAT 🚀)</option>
+                        <option value="CZERKA">Czerka Corporation (CZERKA 🏭)</option>
+                        <option value="CORELLIA">Corellian Engineering (CORELLIA 🛸)</option>
+                        <option value="ALLIANCE">Rebellenallianz (ALLIANCE ⚔️)</option>
+                        <option value="IMPERIUM">Galaktisches Imperium (IMPERIUM 🛡️)</option>
+                    </select>
+                </div>
+
+                <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
+                    <button class="btn green" onclick="saveSettings()">PROFIL SPEICHERN</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ARTIKEL MODAL -->
+    <div id="articleModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="articleModalTitle">ARTIKEL ERFASSEN</div>
+                <button class="btn btn-sm red" onclick="closeArticleModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="modalArticleId" value="0">
+                <div class="form-group">
+                    <label class="form-label">Artikelname *</label>
+                    <input type="text" id="modalArticleName" class="form-control" required placeholder="z. B. DL-44 Blaster">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Kategorie</label>
+                        <select id="modalArticleCategory" class="form-control">
+                            <option value="WEAPON">Waffen & Blaster</option>
+                            <option value="ARMOR">Rüstung & Helme</option>
+                            <option value="DROID">Droiden & Technik</option>
+                            <option value="SHIP_PART">Schiffs- & Antriebsteile</option>
+                            <option value="SUPPLY">Vorräte & Rationen</option>
+                            <option value="HOLOCRON">Artefakte & Holocron</option>
+                            <option value="MISC">Ausrüstung & Sonstiges</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Status</label>
+                        <select id="modalArticleStatus" class="form-control">
+                            <option value="BEREIT">Einsatzbereit</option>
+                            <option value="IM_EINSATZ">Im aktiven Einsatz</option>
+                            <option value="BESCHAEDIGT">Beschädigt / Reparaturbedarf</option>
+                            <option value="IN_LAGER">Im Depot eingelagert</option>
+                            <option value="VERSCHOLLEN">Verschollen / Vermisst</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Menge (Stück)</label>
+                        <input type="number" id="modalArticleQuantity" class="form-control" value="1" min="1">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Lagerort / Position</label>
+                        <input type="text" id="modalArticleLocation" class="form-control" placeholder="z. B. Hangar Bay 3">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Einkaufskosten (CR)</label>
+                        <input type="number" id="modalArticleCosts" class="form-control" step="0.1" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Verkaufspreis (CR)</label>
+                        <input type="number" id="modalArticlePrice" class="form-control" step="0.1" value="0">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Besitzer / Eigentümer</label>
+                        <input type="text" id="modalArticleOwner" class="form-control" placeholder="z. B. Captain Solo">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Partner / Leihgeber</label>
+                        <input type="text" id="modalArticlePartner" class="form-control" placeholder="z. B. Corellian Arms">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Szene / Akt</label>
+                        <input type="text" id="modalArticleScene" class="form-control" placeholder="z. B. Akt 1 - Flucht">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Verknüpfter Vertrag</label>
+                        <select id="modalArticleContractId" class="form-control">
+                            <option value="">Kein Vertrag zugewiesen</option>
+                            <!-- Populated with contracts -->
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Beschreibung</label>
+                    <textarea id="modalArticleDesc" class="form-control" placeholder="Technische Details, Spezifikationen..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Interne Notizen</label>
+                    <textarea id="modalArticleNotes" class="form-control" placeholder="Geheime Aufzeichnungen..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" onclick="closeArticleModal()">ABBRECHEN</button>
+                <button class="btn filled" onclick="saveArticleModal()">SPEICHERN</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- VERTRAG MODAL -->
+    <div id="contractModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="contractModalTitle">VERTRAG ERFASSEN</div>
+                <button class="btn btn-sm red" onclick="closeContractModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="modalContractId" value="0">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Vertragsnummer *</label>
+                        <input type="text" id="modalContractNumber" class="form-control" required placeholder="z. B. K-2024-SW1">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Vertragstitel *</label>
+                        <input type="text" id="modalContractTitle" class="form-control" required placeholder="z. B. Beschaffung Blaster">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Vertragstyp</label>
+                        <select id="modalContractType" class="form-control">
+                            <option value="HANDEL">Handelsvertrag</option>
+                            <option value="KAUF">Kaufabwicklung</option>
+                            <option value="BESCHAFFUNG">Beschaffungsauftrag</option>
+                            <option value="KOPFGELD">Kopfgeld / Söldnerauftrag</option>
+                            <option value="GEHEIM">Klassifizierte Operation</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Status</label>
+                        <select id="modalContractStatus" class="form-control">
+                            <option value="ENTWURF">Entwurf</option>
+                            <option value="LAUFEND">Laufend / Aktiv</option>
+                            <option value="ERFUELLT">Erfüllt</option>
+                            <option value="GESCHEITERT">Gescheitert / Abgebrochen</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Auftraggeber / Besitzer</label>
+                        <input type="text" id="modalContractOwner" class="form-control" placeholder="z. B. Karthon Logistik">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Vertragspartner</label>
+                        <input type="text" id="modalContractPartner" class="form-control" placeholder="z. B. Black Sun Syndikat">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Kosten (CR)</label>
+                        <input type="number" id="modalContractCosts" class="form-control" step="0.1" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Verkaufspreis / Ertrag (CR)</label>
+                        <input type="number" id="modalContractPrice" class="form-control" step="0.1" value="0">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Kaution / Depot (CR)</label>
+                        <input type="number" id="modalContractDeposit" class="form-control" step="0.1" value="0">
+                    </div>
+                    <div class="form-group" style="display: flex; align-items: flex-end; padding-bottom: 8px;">
+                        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.85rem;">
+                            <input type="checkbox" id="modalContractSigned">
+                            <span style="color: var(--holo-cyan); font-weight: 600;">Rechtsgültig unterzeichnet</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Vertragsbedingungen & Fristen</label>
+                    <textarea id="modalContractTerms" class="form-control" placeholder="Lieferfristen, Vertragsstrafen, Klauseln..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Interne Notizen</label>
+                    <textarea id="modalContractNotes" class="form-control" placeholder="Geheime Vereinbarungen..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" onclick="closeContractModal()">ABBRECHEN</button>
+                <button class="btn amber" onclick="saveContractModal()">SPEICHERN</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Note Modal -->
+    <div id="userNoteModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">👤 BENUTZER-NOTIZ BEARBEITEN</div>
+                <button class="modal-close" onclick="closeUserNoteModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Hardware-ID</label>
+                    <input type="text" id="modalUserHwId" class="form-control" readonly style="font-family: monospace; color: var(--holo-cyan);">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Bediener & Firma</label>
+                    <input type="text" id="modalUserInfo" class="form-control" readonly style="color: var(--text-dim);">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Interne Notiz / Zuordnung</label>
+                    <textarea id="modalUserNotes" class="form-control" placeholder="z. B. Datapad Außenposten Beta, zuständig für Frachterdock 4..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" onclick="closeUserNoteModal()">ABBRECHEN</button>
+                <button class="btn filled" onclick="saveUserNoteModal()">SPEICHERN</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <script>
+        // State
+        let articles = [];
+        let contracts = [];
+        let userConfig = { companyName: 'Logistik-Firma', userName: 'Spieler', logoPreset: 'CARGO' };
+        let serverStatus = null;
+        let syncLogs = [];
+        let registeredUsers = [];
+
+        const categoryLabels = {
+            'WEAPON': 'Waffen & Blaster',
+            'ARMOR': 'Rüstung & Helme',
+            'DROID': 'Droiden & Technik',
+            'SHIP_PART': 'Schiffs- & Antriebsteile',
+            'SUPPLY': 'Vorräte & Rationen',
+            'HOLOCRON': 'Artefakte & Holocron',
+            'MISC': 'Ausrüstung & Sonstiges'
+        };
+
+        const statusLabels = {
+            'BEREIT': 'Einsatzbereit',
+            'IM_EINSATZ': 'Im Einsatz',
+            'BESCHAEDIGT': 'Beschädigt',
+            'IN_LAGER': 'Im Lager',
+            'VERSCHOLLEN': 'Verschollen'
+        };
+
+        const contractTypeLabels = {
+            'HANDEL': 'Handelsvertrag',
+            'KAUF': 'Kaufabwicklung',
+            'BESCHAFFUNG': 'Beschaffungsauftrag',
+            'KOPFGELD': 'Kopfgeldauftrag',
+            'GEHEIM': 'Klassifiziert'
+        };
+
+        const contractStatusLabels = {
+            'ENTWURF': 'Entwurf',
+            'LAUFEND': 'Laufend',
+            'ERFUELLT': 'Erfüllt',
+            'GESCHEITERT': 'Gescheitert'
+        };
+
+        const logoIcons = {
+            'CARGO': '📦',
+            'KUAT': '🚀',
+            'CZERKA': '🏭',
+            'CORELLIA': '🛸',
+            'ALLIANCE': '⚔️',
+            'IMPERIUM': '🛡️'
+        };
+
+        // Navigation
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+            
+            const btn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.getAttribute('onclick').includes(tabId));
+            if (btn) btn.classList.add('active');
+            
+            const pane = document.getElementById('tab-' + tabId);
+            if (pane) pane.classList.add('active');
+        }
+
+        // Format Credits
+        function formatCredits(amount) {
+            return Number(amount || 0).toLocaleString('de-DE', { minimumFractionDigits: 0, maximumFractionDigits: 2 }) + ' CR';
+        }
+
+        // Toast
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast ' + type;
+            const icon = type === 'success' ? '✓' : (type === 'error' ? '⚠' : 'ℹ');
+            toast.innerHTML = '<span>' + icon + '</span> <span>' + message + '</span>';
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+
+        // Users Management
+        async function fetchUsers() {
+            try {
+                const res = await fetch('/api/users');
+                if (res.ok) {
+                    registeredUsers = await res.json();
+                    renderUsers();
+                    const badge = document.getElementById('navUserCount');
+                    if (badge) badge.textContent = registeredUsers.length;
+                    const statTotal = document.getElementById('statUserTotal');
+                    if (statTotal) statTotal.textContent = registeredUsers.length;
+                    
+                    const now = Date.now();
+                    const active24h = registeredUsers.filter(u => (now - u.lastSync) < 24 * 60 * 60 * 1000).length;
+                    const statActive = document.getElementById('statUserActive');
+                    if (statActive) statActive.textContent = active24h;
+
+                    const totalSyncs = registeredUsers.reduce((sum, u) => sum + (u.syncCount || 0), 0);
+                    const statSync = document.getElementById('statUserSyncCount');
+                    if (statSync) statSync.textContent = totalSyncs;
+
+                    const statLast = document.getElementById('statUserLastSync');
+                    if (statLast) {
+                        if (registeredUsers.length > 0) {
+                            const mostRecent = registeredUsers.reduce((prev, curr) => curr.lastSync > prev.lastSync ? curr : prev);
+                            statLast.textContent = new Date(mostRecent.lastSync).toLocaleTimeString('de-DE');
+                        } else {
+                            statLast.textContent = '-';
+                        }
+                    }
+                }
+            } catch (err) {
+                console.error("Fehler beim Laden der Benutzer:", err);
+            }
+        }
+
+        function renderUsers() {
+            const tbody = document.getElementById('usersTableBody');
+            if (!tbody) return;
+            const search = (document.getElementById('userSearch')?.value || '').toLowerCase().trim();
+
+            const filtered = registeredUsers.filter(u => {
+                if (!search) return true;
+                return (u.hardwareId && u.hardwareId.toLowerCase().includes(search)) ||
+                       (u.userName && u.userName.toLowerCase().includes(search)) ||
+                       (u.companyName && u.companyName.toLowerCase().includes(search)) ||
+                       (u.lastIp && u.lastIp.toLowerCase().includes(search)) ||
+                       (u.notes && u.notes.toLowerCase().includes(search));
+            });
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: var(--text-dim); padding: 24px;">${registeredUsers.length === 0 ? 'Noch keine Datapad-Benutzer registriert. Sobald sich eine Android-App per WLAN synchronisiert, wird sie hier automatisch anhand ihrer Hardware-ID gelistet.' : 'Keine Datapad-Benutzer entsprechen dem Suchfilter.'}</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = '';
+            filtered.forEach(u => {
+                const tr = document.createElement('tr');
+                const firstSeenStr = u.firstSeen ? (new Date(u.firstSeen).toLocaleDateString('de-DE') + ' ' + new Date(u.firstSeen).toLocaleTimeString('de-DE', {hour:'2-digit', minute:'2-digit'})) : '-';
+                const lastSyncStr = u.lastSync ? (new Date(u.lastSync).toLocaleDateString('de-DE') + ' ' + new Date(u.lastSync).toLocaleTimeString('de-DE', {hour:'2-digit', minute:'2-digit'})) : '-';
+                const logo = logoIcons[u.logoPreset] || '📱';
+                const encodedHwId = encodeURIComponent(u.hardwareId);
+
+                tr.innerHTML = `
+                    <td>
+                        <span class="badge-chip badge-cyan" style="font-family: monospace; font-size: 0.82rem; letter-spacing: 1px;">
+                            ${escapeHtml(u.hardwareId)}
+                        </span>
+                    </td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span style="font-size: 1.2rem;">${logo}</span>
+                            <div>
+                                <strong style="color: var(--holo-cyan);">${escapeHtml(u.userName || 'Datapad-Benutzer')}</strong>
+                                <div style="font-size: 0.72rem; color: var(--text-dim);">${escapeHtml(u.companyName || 'Keine Firmenangabe')}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <span style="font-family: monospace; color: var(--holo-green); font-size: 0.8rem;">${escapeHtml(u.lastIp || '-')}</span>
+                    </td>
+                    <td>
+                        <span style="font-family: monospace; font-weight: 700; color: var(--holo-amber);">${u.syncCount || 1}×</span>
+                    </td>
+                    <td style="font-size: 0.75rem; color: var(--text-dim);">${firstSeenStr}</td>
+                    <td style="font-size: 0.75rem; color: var(--holo-cyan);">${lastSyncStr}</td>
+                    <td style="font-size: 0.8rem; max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${escapeHtml(u.notes || '')}">
+                        ${u.notes ? escapeHtml(u.notes) : '<em style="color: var(--text-dim);">Keine Notiz</em>'}
+                    </td>
+                    <td>
+                        <div style="display: flex; gap: 6px;">
+                            <button class="btn" style="padding: 2px 8px; font-size: 0.72rem;" onclick="openUserNoteModal('${encodedHwId}')">✏️ Notiz</button>
+                            <button class="btn red" style="padding: 2px 8px; font-size: 0.72rem;" onclick="deleteUserConfirm('${encodedHwId}')">🗑️</button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function openUserNoteModal(encodedHwId) {
+            const hwId = decodeURIComponent(encodedHwId);
+            const user = registeredUsers.find(u => u.hardwareId === hwId);
+            if (!user) return;
+            document.getElementById('modalUserHwId').value = user.hardwareId;
+            document.getElementById('modalUserInfo').value = `${user.userName || 'Unbekannt'} (${user.companyName || 'Keine Firma'})`;
+            document.getElementById('modalUserNotes').value = user.notes || '';
+            document.getElementById('userNoteModal').classList.add('active');
+        }
+
+        function closeUserNoteModal() {
+            document.getElementById('userNoteModal').classList.remove('active');
+        }
+
+        async function saveUserNoteModal() {
+            const hwId = document.getElementById('modalUserHwId').value;
+            const notes = document.getElementById('modalUserNotes').value;
+            try {
+                const res = await fetch('/api/users/' + encodeURIComponent(hwId) + '/notes', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+                    body: notes
+                });
+                if (res.ok) {
+                    showToast('Notiz für Datapad aktualisiert', 'success');
+                    closeUserNoteModal();
+                    await fetchUsers();
+                } else {
+                    showToast('Fehler beim Speichern der Notiz', 'error');
+                }
+            } catch (err) {
+                showToast('Verbindungsfehler: ' + err.message, 'error');
+            }
+        }
+
+        async function deleteUserConfirm(encodedHwId) {
+            const hwId = decodeURIComponent(encodedHwId);
+            if (!confirm(`Möchten Sie das Datapad mit der Hardware-ID '${hwId}' wirklich entkoppeln und aus der Registrierung entfernen?`)) {
+                return;
+            }
+            try {
+                const res = await fetch('/api/users/' + encodeURIComponent(hwId), { method: 'DELETE' });
+                if (res.ok) {
+                    showToast('Datapad ' + hwId + ' erfolgreich entkoppelt', 'success');
+                    await fetchUsers();
+                } else {
+                    showToast('Fehler beim Entfernen des Datapads', 'error');
+                }
+            } catch (err) {
+                showToast('Verbindungsfehler: ' + err.message, 'error');
+            }
+        }
+
+        // Fetch Data from Backend
+        async function fetchAllData() {
+            try {
+                const res = await fetch('/api/sync/bundle');
+                if (res.ok) {
+                    const data = await res.json();
+                    articles = data.articles || [];
+                    contracts = data.contracts || [];
+                    if (data.userConfig) {
+                        userConfig = data.userConfig;
+                    }
+                    updateUi();
+                    fetchUsers();
+                }
+            } catch (err) {
+                console.error("Fehler beim Laden:", err);
+            }
+        }
+
+        async function fetchStatus() {
+            try {
+                const res = await fetch('/api/status');
+                if (res.ok) {
+                    serverStatus = await res.json();
+                    if (serverStatus.localAddresses && serverStatus.localAddresses.length > 0) {
+                        const host = serverStatus.localAddresses[0];
+                        const fullUrl = 'http://' + host + ':' + serverStatus.port;
+                        document.getElementById('headerIpDisplay').textContent = host + ':' + serverStatus.port;
+                        document.getElementById('syncUrlDisplay').textContent = fullUrl;
+                        renderQrCode(fullUrl);
+                    }
+                    if (serverStatus.userConfig) {
+                        userConfig = serverStatus.userConfig;
+                    }
+                    updateUi();
+                }
+                fetchLogs();
+            } catch (err) {
+                console.error("Status-Fehler:", err);
+            }
+        }
+
+        async function fetchLogs() {
+            try {
+                const res = await fetch('/api/logs');
+                if (res.ok) {
+                    syncLogs = await res.json();
+                    renderSyncLogs();
+                }
+            } catch (err) {
+                console.error("Logs-Fehler:", err);
+            }
+        }
+
+        function renderSyncLogs() {
+            const tbody = document.getElementById('syncLogsTableBody');
+            if (!syncLogs || syncLogs.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-dim); padding: 16px;">Noch keine Synchronisations-Vorgänge aufgezeichnet.</td></tr>';
+                return;
+            }
+            tbody.innerHTML = '';
+            syncLogs.forEach(log => {
+                const tr = document.createElement('tr');
+                const date = new Date(log.timestamp).toLocaleTimeString('de-DE');
+                tr.innerHTML = `
+                    <td style="font-family: monospace; font-size: 0.8rem;">${date}</td>
+                    <td style="font-family: monospace; color: var(--holo-cyan); font-size: 0.8rem;">${escapeHtml(log.clientIp)}</td>
+                    <td><span class="badge-chip badge-amber">${escapeHtml(log.syncType)}</span></td>
+                    <td style="font-size: 0.8rem;">${escapeHtml(log.message)}</td>
+                    <td><span class="badge-chip ${log.success ? 'badge-green' : 'badge-red'}">${log.success ? 'ERFOLG' : 'FEHLER'}</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function updateUi() {
+            // Header & Config
+            document.getElementById('headerCompanyName').textContent = userConfig.companyName || 'STAR WARS DATAPAD';
+            document.getElementById('headerUserName').textContent = userConfig.userName || 'SPIELER';
+            document.getElementById('headerLogo').textContent = logoIcons[userConfig.logoPreset] || '📦';
+
+            // Settings inputs
+            document.getElementById('settingsCompanyName').value = userConfig.companyName || '';
+            document.getElementById('settingsUserName').value = userConfig.userName || '';
+            document.getElementById('settingsLogoPreset').value = userConfig.logoPreset || 'CARGO';
+
+            renderArticles();
+            renderContracts();
+            updateContractDropdown();
+        }
+
+
+        // Resolve Hardware-ID to display name
+        function resolveHardwareIdCell(hwId) {
+            if (!hwId || hwId === '') {
+                return '<div style="color: var(--text-dim);">-</div>';
+            }
+            // Server's own ID = "Zentrale"
+            const serverHwId = (userConfig && userConfig.deviceId) ? userConfig.deviceId : 'SW-HW-ZENTRALE-SEC4';
+            const isZentrale = (hwId === serverHwId) || hwId === 'SW-HW-ZENTRALE-SEC4';
+            
+            if (isZentrale) {
+                return `<div style="color: var(--holo-green); font-weight: 700;">🖥️ Zentrale</div>
+                        <div style="font-family: monospace; font-size: 0.65rem; color: var(--text-dim); margin-top: 1px;">${escapeHtml(hwId)}</div>`;
+            }
+            
+            // Look up registered user
+            const user = registeredUsers.find(u => u.hardwareId === hwId);
+            const userName = user ? (user.userName || 'Datapad-Nutzer') : 'Unbekannt';
+            const logo = user ? (({'CARGO':'📦','KUAT':'🚀','CZERKA':'🏭','CORELLIA':'🛸','ALLIANCE':'⚔️','IMPERIUM':'🛡️'})[user.logoPreset] || '📱') : '📱';
+            
+            return `<div style="color: var(--holo-cyan); font-weight: 600;">${logo} ${escapeHtml(userName)}</div>
+                    <div style="font-family: monospace; font-size: 0.65rem; color: var(--text-dim); margin-top: 1px;">${escapeHtml(hwId)}</div>`;
+        }
+
+        // Render Articles
+        function renderArticles() {
+            const query = (document.getElementById('articleSearch').value || '').toLowerCase();
+            const catFilter = document.getElementById('articleCategoryFilter').value;
+            const statFilter = document.getElementById('articleStatusFilter').value;
+
+            const filtered = articles.filter(a => {
+                if (a.deleted) return false;
+                const matchesSearch = !query || 
+                    a.name.toLowerCase().includes(query) ||
+                    (a.owner || '').toLowerCase().includes(query) ||
+                    (a.partner || '').toLowerCase().includes(query) ||
+                    (a.location || '').toLowerCase().includes(query);
+                const matchesCat = !catFilter || a.category === catFilter;
+                const matchesStat = !statFilter || a.status === statFilter;
+                return matchesSearch && matchesCat && matchesStat;
+            });
+
+            // Update stats
+            document.getElementById('statArticleTypes').textContent = filtered.length;
+            const totalQty = filtered.reduce((sum, a) => sum + (a.quantity || 1), 0);
+            document.getElementById('statArticleQuantity').textContent = totalQty;
+            const totalVal = filtered.reduce((sum, a) => sum + ((a.price || 0) * (a.quantity || 1)), 0);
+            document.getElementById('statArticleValue').textContent = formatCredits(totalVal);
+            const totalCosts = filtered.reduce((sum, a) => sum + ((a.costs || 0) * (a.quantity || 1)), 0);
+            document.getElementById('statArticleCosts').textContent = formatCredits(totalCosts);
+
+            const tbody = document.getElementById('articlesTableBody');
+            tbody.innerHTML = '';
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="11" style="text-align: center; color: var(--text-dim); padding: 24px;">Keine Artikel gefunden.</td></tr>';
+                return;
+            }
+
+            filtered.forEach(art => {
+                const tr = document.createElement('tr');
+                const catLabel = categoryLabels[art.category] || art.category;
+                const statLabel = statusLabels[art.status] || art.status;
+                const linkedContract = contracts.find(c => c.id === art.contractId);
+                const contractDisplay = linkedContract 
+                    ? `<span class="badge-chip badge-amber" title="${escapeHtml(linkedContract.title)}">📜 ${escapeHtml(linkedContract.contractNumber)}</span>` 
+                    : '<span style="color:var(--text-dark)">-</span>';
+
+                let statusBadge = 'badge-cyan';
+                if (art.status === 'BESCHAEDIGT' || art.status === 'VERSCHOLLEN') statusBadge = 'badge-red';
+                else if (art.status === 'IN_LAGER') statusBadge = 'badge-amber';
+                else if (art.status === 'BEREIT') statusBadge = 'badge-green';
+
+                tr.innerHTML = `
+                    <td style="font-family: monospace; color: var(--text-dim);">${art.id}</td>
+                    <td>
+                        <strong style="color: var(--text-main); font-size: 0.95rem;">${escapeHtml(art.name)}</strong>
+                        ${art.description ? `<div style="font-size: 0.75rem; color: var(--text-dim); margin-top: 2px;">${escapeHtml(art.description)}</div>` : ''}
+                    </td>
+                    <td><span class="badge-chip badge-dim">${catLabel}</span></td>
+                    <td><span class="badge-chip ${statusBadge}">${statLabel}</span></td>
+                    <td><strong style="font-size: 1rem; color: var(--holo-cyan);">${art.quantity}</strong></td>
+                    <td style="font-size: 0.8rem;">
+                        <div>👤 ${escapeHtml(art.owner || '-')}</div>
+                        ${art.partner ? `<div style="color: var(--text-dim)">🤝 ${escapeHtml(art.partner)}</div>` : ''}
+                    </td>
+                    <td style="font-size: 0.8rem;">
+                        ${resolveHardwareIdCell(art.hardwareId)}
+                    </td>
+                    <td class="credits" style="color: var(--text-dim);">${formatCredits(art.costs)}</td>
+                    <td class="credits">${formatCredits(art.price)}</td>
+                    <td>${contractDisplay}</td>
+                    <td>
+                        <div style="display: flex; gap: 6px;">
+                            <button class="btn btn-sm" onclick="editArticle('${art.id}')">✏️</button>
+                            <button class="btn btn-sm red" onclick="deleteArticle('${art.id}')">🗑️</button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Render Contracts
+        function renderContracts() {
+            const query = (document.getElementById('contractSearch').value || '').toLowerCase();
+            const typeFilter = document.getElementById('contractTypeFilter').value;
+            const statFilter = document.getElementById('contractStatusFilter').value;
+
+            const filtered = contracts.filter(c => {
+                if (c.deleted) return false;
+                const matchesSearch = !query || 
+                    c.contractNumber.toLowerCase().includes(query) ||
+                    c.title.toLowerCase().includes(query) ||
+                    (c.partner || '').toLowerCase().includes(query) ||
+                    (c.owner || '').toLowerCase().includes(query);
+                const matchesType = !typeFilter || c.type === typeFilter;
+                const matchesStat = !statFilter || c.status === statFilter;
+                return matchesSearch && matchesType && matchesStat;
+            });
+
+            // Update stats
+            document.getElementById('statContractTotal').textContent = filtered.length;
+            const activeCount = filtered.filter(c => c.status === 'LAUFEND').length;
+            document.getElementById('statContractActive').textContent = activeCount;
+            const totalRev = filtered.reduce((sum, c) => sum + (c.price || 0), 0);
+            document.getElementById('statContractRevenue').textContent = formatCredits(totalRev);
+            const totalCosts = filtered.reduce((sum, c) => sum + (c.costs || 0), 0);
+            document.getElementById('statContractProfit').textContent = formatCredits(totalRev - totalCosts);
+
+            const tbody = document.getElementById('contractsTableBody');
+            tbody.innerHTML = '';
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="13" style="text-align: center; color: var(--text-dim); padding: 24px;">Keine Verträge gefunden.</td></tr>';
+                return;
+            }
+
+            filtered.forEach(con => {
+                const tr = document.createElement('tr');
+                const typeLabel = contractTypeLabels[con.type] || con.type;
+                const statLabel = contractStatusLabels[con.status] || con.status;
+                const linkedArticles = articles.filter(a => a.contractId === con.id);
+                const profit = (con.price || 0) - (con.costs || 0);
+
+                let statusBadge = 'badge-dim';
+                if (con.status === 'LAUFEND') statusBadge = 'badge-amber';
+                else if (con.status === 'ERFUELLT') statusBadge = 'badge-green';
+                else if (con.status === 'GESCHEITERT') statusBadge = 'badge-red';
+
+                tr.innerHTML = `
+                    <td><strong style="color: var(--holo-amber); font-family: monospace;">${escapeHtml(con.contractNumber)}</strong></td>
+                    <td>
+                        <strong style="color: var(--text-main); font-size: 0.95rem;">${escapeHtml(con.title)}</strong>
+                        ${con.terms ? `<div style="font-size: 0.75rem; color: var(--text-dim); margin-top: 2px;">${escapeHtml(con.terms)}</div>` : ''}
+                    </td>
+                    <td><span class="badge-chip badge-dim">${typeLabel}</span></td>
+                    <td><span class="badge-chip ${statusBadge}">${statLabel}</span></td>
+                    <td style="font-size: 0.8rem;">👤 ${escapeHtml(con.owner || '-')}</td>
+                    <td style="font-size: 0.8rem;">🤝 ${escapeHtml(con.partner || '-')}</td>
+                    <td style="font-size: 0.8rem;">
+                        ${resolveHardwareIdCell(con.hardwareId)}
+                    </td>
+                    <td class="credits" style="color: var(--text-dim);">${formatCredits(con.costs)}</td>
+                    <td class="credits" style="color: var(--holo-amber);">${formatCredits(con.price)}</td>
+                    <td class="credits" style="color: ${profit >= 0 ? 'var(--holo-green)' : 'var(--holo-red)'};">${formatCredits(profit)}</td>
+                    <td>${con.signed ? '<span style="color: var(--holo-green); font-size: 1.1rem;">✓</span>' : '<span style="color: var(--text-dark)">✗</span>'}</td>
+                    <td><span class="badge-chip badge-cyan">${linkedArticles.length} Artikel</span></td>
+                    <td>
+                        <div style="display: flex; gap: 6px;">
+                            <button class="btn btn-sm amber" onclick="editContract('${con.id}')">✏️</button>
+                            <button class="btn btn-sm red" onclick="deleteContract('${con.id}')">🗑️</button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function updateContractDropdown() {
+            const select = document.getElementById('modalArticleContractId');
+            select.innerHTML = '<option value="">Kein Vertrag zugewiesen</option>';
+            contracts.forEach(c => {
+                const opt = document.createElement('option');
+                opt.value = c.id;
+                opt.textContent = c.contractNumber + ' - ' + c.title;
+                select.appendChild(opt);
+            });
+        }
+
+        // Modals - Article
+        function openArticleModal(article = null) {
+            updateContractDropdown();
+            document.getElementById('modalArticleId').value = article ? article.id : 0;
+            document.getElementById('articleModalTitle').textContent = article ? 'ARTIKEL BEARBEITEN #' + article.id : 'NEUEN ARTIKEL ERFASSEN';
+            document.getElementById('modalArticleName').value = article ? article.name : '';
+            document.getElementById('modalArticleCategory').value = article ? article.category : 'WEAPON';
+            document.getElementById('modalArticleStatus').value = article ? article.status : 'BEREIT';
+            document.getElementById('modalArticleQuantity').value = article ? article.quantity : 1;
+            document.getElementById('modalArticleLocation').value = article ? article.location : '';
+            document.getElementById('modalArticleCosts').value = article ? article.costs : 0;
+            document.getElementById('modalArticlePrice').value = article ? article.price : 0;
+            document.getElementById('modalArticleOwner').value = article ? article.owner : userConfig.companyName;
+            document.getElementById('modalArticlePartner').value = article ? article.partner : '';
+            document.getElementById('modalArticleScene').value = article ? article.scene : '';
+            document.getElementById('modalArticleContractId').value = article && article.contractId ? article.contractId : '';
+            document.getElementById('modalArticleDesc').value = article ? article.description : '';
+            document.getElementById('modalArticleNotes').value = article ? article.notes : '';
+
+            document.getElementById('articleModal').classList.add('active');
+        }
+
+        function closeArticleModal() {
+            document.getElementById('articleModal').classList.remove('active');
+        }
+
+        function editArticle(id) {
+            const article = articles.find(a => a.id === id);
+            if (article) openArticleModal(article);
+        }
+
+        async function saveArticleModal() {
+            const name = document.getElementById('modalArticleName').value.trim();
+            if (!name) {
+                showToast('Bitte einen Artikelnamen eingeben', 'error');
+                return;
+            }
+            id = document.getElementById('modalArticleId').value != 0 ? document.getElementById('modalArticleId').value : '';
+            const contractVal = document.getElementById('modalArticleContractId').value;
+
+            const article = {
+                id: id,
+                name: name,
+                category: document.getElementById('modalArticleCategory').value,
+                status: document.getElementById('modalArticleStatus').value,
+                quantity: Number(document.getElementById('modalArticleQuantity').value) || 1,
+                location: document.getElementById('modalArticleLocation').value.trim(),
+                costs: Number(document.getElementById('modalArticleCosts').value) || 0,
+                price: Number(document.getElementById('modalArticlePrice').value) || 0,
+                owner: document.getElementById('modalArticleOwner').value.trim(),
+                partner: document.getElementById('modalArticlePartner').value.trim(),
+                scene: document.getElementById('modalArticleScene').value.trim(),
+                contractId: contractVal ? Number(contractVal) : null,
+                description: document.getElementById('modalArticleDesc').value.trim(),
+                notes: document.getElementById('modalArticleNotes').value.trim(),
+                updatedAt: Date.now()
+            };
+
+            try {
+                const res = await fetch('/api/articles', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(article)
+                });
+                if (res.ok) {
+                    closeArticleModal();
+                    showToast('Artikel erfolgreich gespeichert', 'success');
+                    await fetchAllData();
+                } else {
+                    showToast('Fehler beim Speichern des Artikels', 'error');
+                }
+            } catch (err) {
+                showToast('Verbindungsfehler: ' + err.message, 'error');
+            }
+        }
+
+        async function deleteArticle(id) {
+            const art = articles.find(a => a.id === id);
+            if (!confirm(`Soll der Artikel "${art ? art.name : id}" wirklich vernichtet/gelöscht werden?`)) return;
+
+            try {
+                const res = await fetch('/api/articles/' + id, { method: 'DELETE' });
+                if (res.ok) {
+                    showToast('Artikel gelöscht', 'success');
+                    await fetchAllData();
+                } else {
+                    showToast('Fehler beim Löschen', 'error');
+                }
+            } catch (err) {
+                showToast('Verbindungsfehler: ' + err.message, 'error');
+            }
+        }
+
+        // Modals - Contract
+        function openContractModal(contract = null) {
+            document.getElementById('modalContractId').value = contract ? contract.id : 0;
+            document.getElementById('contractModalTitle').textContent = contract ? 'VERTRAG BEARBEITEN #' + contract.id : 'NEUEN VERTRAG ERFASSEN';
+            document.getElementById('modalContractNumber').value = contract ? contract.contractNumber : 'K-' + new Date().getFullYear() + '-SW' + (contracts.length + 1);
+            document.getElementById('modalContractTitle').value = contract ? contract.title : '';
+            document.getElementById('modalContractType').value = contract ? contract.type : 'HANDEL';
+            document.getElementById('modalContractStatus').value = contract ? contract.status : 'ENTWURF';
+            document.getElementById('modalContractOwner').value = contract ? contract.owner : userConfig.companyName;
+            document.getElementById('modalContractPartner').value = contract ? contract.partner : '';
+            document.getElementById('modalContractCosts').value = contract ? contract.costs : 0;
+            document.getElementById('modalContractPrice').value = contract ? contract.price : 0;
+            document.getElementById('modalContractDeposit').value = contract ? contract.deposit : 0;
+            document.getElementById('modalContractSigned').checked = contract ? contract.signed : false;
+            document.getElementById('modalContractTerms').value = contract ? contract.terms : '';
+            document.getElementById('modalContractNotes').value = contract ? contract.notes : '';
+
+            document.getElementById('contractModal').classList.add('active');
+        }
+
+        function closeContractModal() {
+            document.getElementById('contractModal').classList.remove('active');
+        }
+
+        function editContract(id) {
+            const contract = contracts.find(c => c.id === id);
+            if (contract) openContractModal(contract);
+        }
+
+        async function saveContractModal() {
+            const number = document.getElementById('modalContractNumber').value.trim();
+            const title = document.getElementById('modalContractTitle').value.trim();
+            if (!number || !title) {
+                showToast('Bitte Vertragsnummer und Titel eingeben', 'error');
+                return;
+            }
+
+            id = document.getElementById('modalContractId').value != 0 ? document.getElementById('modalContractId').value : '';
+
+            const contract = {
+                id: id,
+                contractNumber: number,
+                title: title,
+                type: document.getElementById('modalContractType').value,
+                status: document.getElementById('modalContractStatus').value,
+                owner: document.getElementById('modalContractOwner').value.trim(),
+                partner: document.getElementById('modalContractPartner').value.trim(),
+                costs: Number(document.getElementById('modalContractCosts').value) || 0,
+                price: Number(document.getElementById('modalContractPrice').value) || 0,
+                deposit: Number(document.getElementById('modalContractDeposit').value) || 0,
+                signed: document.getElementById('modalContractSigned').checked,
+                terms: document.getElementById('modalContractTerms').value.trim(),
+                notes: document.getElementById('modalContractNotes').value.trim(),
+                updatedAt: Date.now()
+            };
+
+            try {
+                const res = await fetch('/api/contracts', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(contract)
+                });
+                if (res.ok) {
+                    closeContractModal();
+                    showToast('Vertrag erfolgreich gespeichert', 'success');
+                    await fetchAllData();
+                } else {
+                    showToast('Fehler beim Speichern des Vertrags', 'error');
+                }
+            } catch (err) {
+                showToast('Verbindungsfehler: ' + err.message, 'error');
+            }
+        }
+
+        async function deleteContract(id) {
+            const con = contracts.find(c => c.id === id);
+            if (!confirm(`Soll der Vertrag "${con ? con.title : id}" wirklich annulliert/gelöscht werden?`)) return;
+
+            try {
+                const res = await fetch('/api/contracts/' + id, { method: 'DELETE' });
+                if (res.ok) {
+                    showToast('Vertrag gelöscht', 'success');
+                    await fetchAllData();
+                } else {
+                    showToast('Fehler beim Löschen', 'error');
+                }
+            } catch (err) {
+                showToast('Verbindungsfehler: ' + err.message, 'error');
+            }
+        }
+
+        // Settings
+        async function saveSettings() {
+            const company = document.getElementById('settingsCompanyName').value.trim();
+            const user = document.getElementById('settingsUserName').value.trim();
+            const preset = document.getElementById('settingsLogoPreset').value;
+
+            userConfig = {
+                companyName: company || 'Logistik-Firma',
+                userName: user || 'Spieler',
+                logoPreset: preset
+            };
+
+            try {
+                const res = await fetch('/api/config', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(userConfig)
+                });
+                if (res.ok) {
+                    showToast('Firmenprofil aktualisiert', 'success');
+                    updateUi();
+                }
+            } catch (err) {
+                showToast('Fehler: ' + err.message, 'error');
+            }
+        }
+
+        function updateLogoPreview() {
+            const preset = document.getElementById('settingsLogoPreset').value;
+            document.getElementById('headerLogo').textContent = logoIcons[preset] || '📦';
+        }
+
+        // WiFi & Sync
+        function copySyncUrl() {
+            const url = document.getElementById('syncUrlDisplay').textContent;
+            navigator.clipboard.writeText(url).then(() => {
+                showToast('WLAN-URL in die Zwischenablage kopiert!', 'success');
+            });
+        }
+
+        async function triggerClientPull() {
+            showToast('Lade Datenbestand vom Server...', 'info');
+            await fetchAllData();
+            showToast('Synchronisiert: ' + articles.length + ' Artikel, ' + contracts.length + ' Verträge', 'success');
+        }
+
+        function downloadBackupJson() {
+            window.location.href = '/api/export/bundle';
+        }
+
+        function downloadBackupZip() {
+            window.location.href = '/api/export/zip';
+        }
+
+        // Import handling
+        const dropZone = document.getElementById('dropZone');
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, e => { e.preventDefault(); dropZone.classList.add('dragover'); }, false);
+        });
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, e => { e.preventDefault(); dropZone.classList.remove('dragover'); }, false);
+        });
+
+        dropZone.addEventListener('drop', e => {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            if (files.length > 0) uploadFile(files[0]);
+        });
+
+        function handleFileSelect(e) {
+            const file = e.target.files[0];
+            if (file) uploadFile(file);
+        }
+
+        async function uploadFile(file) {
+            const overwrite = document.getElementById('overwriteCheckbox').checked;
+            showToast('Importiere ' + file.name + '...', 'info');
+
+            try {
+                const res = await fetch('/api/import?overwrite=' + overwrite, {
+                    method: 'POST',
+                    body: file
+                });
+                const result = await res.json();
+                if (result.success) {
+                    showToast(result.message, 'success');
+                    await fetchAllData();
+                    switchTab('articles');
+                } else {
+                    showToast('Import fehlgeschlagen: ' + result.message, 'error');
+                }
+            } catch (err) {
+                showToast('Fehler beim Upload: ' + err.message, 'error');
+            }
+        }
+
+        async function importRawJson() {
+            const raw = document.getElementById('rawJsonInput').value.trim();
+            if (!raw) {
+                showToast('Bitte JSON-Text einfügen', 'error');
+                return;
+            }
+
+            const overwrite = document.getElementById('overwriteCheckbox').checked;
+            try {
+                const res = await fetch('/api/import?overwrite=' + overwrite, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: raw
+                });
+                const result = await res.json();
+                if (result.success) {
+                    showToast(result.message, 'success');
+                    document.getElementById('rawJsonInput').value = '';
+                    await fetchAllData();
+                    switchTab('articles');
+                } else {
+                    showToast('Importfehler: ' + result.message, 'error');
+                }
+            } catch (err) {
+                showToast('Verbindungsfehler: ' + err.message, 'error');
+            }
+        }
+
+        // Render QR Code
+        function renderQrCode(text) {
+            const container = document.getElementById('qrContainer');
+            const encoded = encodeURIComponent(text);
+            container.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=${encoded}" 
+                        onerror="this.onerror=null; this.parentElement.innerHTML='<div style=\'text-align:center;font-size:0.75rem;color:#000;\'><strong>URL:</strong><br>${escapeHtml(text)}</div>';" 
+                        alt="QR Code" width="170" height="170" style="display:block;margin:auto;">`;
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        // Init
+        window.addEventListener('DOMContentLoaded', async () => {
+            await fetchStatus();
+            await fetchAllData();
+            await fetchUsers();
+            setInterval(fetchStatus, 15000);
+            setInterval(fetchUsers, 15000);
+        });
+    </script>
+</body>
+</html>

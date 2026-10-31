@@ -1,0 +1,19 @@
+{
+    "id": "SW-HW-3E7BA9CE_1793445430790",
+    "name": "Astromech-Droiden-Einheit R2",
+    "category": "DROID",
+    "status": "IM_EINSATZ",
+    "description": "",
+    "owner": "Rebellen-Zelle",
+    "partner": "",
+    "quantity": 1,
+    "location": "",
+    "scene": "",
+    "costs": 2500.0,
+    "price": 4500.0,
+    "contractId": null,
+    "notes": "",
+    "updatedAt": 1793445598073,
+    "hardwareId": "SW-HW-3E7BA9CE",
+    "deleted": true
+}
