@@ -1,0 +1,1 @@
+java -jar ./StarWarsSync-1.0.0-all.jar
